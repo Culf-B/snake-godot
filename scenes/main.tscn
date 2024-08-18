@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0d6lnvnfpare"]
+
+[ext_resource type="PackedScene" uid="uid://dl0o1b4tyr7u" path="res://scenes/player.tscn" id="2_rgkgk"]
+[ext_resource type="Script" path="res://scripts/apple.gd" id="3_yar5c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0g7r"]
+size = Vector2(999, 999)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hd1hw"]
+size = Vector2(48, 48)
+
+[node name="Main Scene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+limit_left = -500
+limit_top = -500
+limit_right = 500
+limit_bottom = 500
+editor_draw_limits = true
+
+[node name="Map" type="Area2D" parent="."]
+
+[node name="Map color" type="ColorRect" parent="Map"]
+visible = false
+offset_left = -500.0
+offset_top = -500.0
+offset_right = 500.0
+offset_bottom = 500.0
+color = Color(1, 1, 1, 0.545098)
+
+[node name="Map collider" type="CollisionShape2D" parent="Map"]
+shape = SubResource("RectangleShape2D_o0g7r")
+
+[node name="Apple" type="Area2D" parent="."]
+position = Vector2(-100, -100)
+script = ExtResource("3_yar5c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Apple"]
+position = Vector2(25, 25)
+shape = SubResource("RectangleShape2D_hd1hw")
+
+[node name="ColorRect" type="ColorRect" parent="Apple"]
+offset_right = 50.0
+offset_bottom = 50.0
+color = Color(1, 0, 0, 1)
+
+[node name="Player" parent="." instance=ExtResource("2_rgkgk")]
+
+[connection signal="area_exited" from="Map" to="Player" method="_outOfBounds"]
+[connection signal="area_entered" from="Apple" to="Apple" method="_hit"]
+[connection signal="area_entered" from="Apple" to="Player" method="_appleHit"]
