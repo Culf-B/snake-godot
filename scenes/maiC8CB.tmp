@@ -60,4 +60,3 @@ script = ExtResource("3_60k2r")
 [connection signal="area_exited" from="Map" to="Player" method="_outOfBounds"]
 [connection signal="area_entered" from="Apple" to="Apple" method="_hit"]
 [connection signal="area_entered" from="Apple" to="Player" method="_appleHit"]
-[connection signal="updateScore" from="Player" to="ScoreLabel" method="_updateScore"]

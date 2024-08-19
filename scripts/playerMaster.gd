@@ -5,6 +5,7 @@ var playerPosition
 
 var score = 0
 var playerHead
+signal updateScore
 
 func _ready() -> void:
 	playerHead = get_child(0)
@@ -20,7 +21,8 @@ func _move() -> void:
 
 func _appleHit(area: Area2D) -> void:
 	print("Apple hit!")
-	score += 1
+	
+	emit_signal("updateScore")
 	
 	# Add tail area
 	var newTailArea = Area2D.new()
